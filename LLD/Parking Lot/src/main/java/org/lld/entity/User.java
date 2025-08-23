@@ -39,6 +39,6 @@ public class User {
     }
 
     public void notify(String message) {
-        System.out.println("User" + this.userName + " notified with the message: " + message);
+        System.out.println("User " + this.userName + " notified with the message: " + message);
     }
 }

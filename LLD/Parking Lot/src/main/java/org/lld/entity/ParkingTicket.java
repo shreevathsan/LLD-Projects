@@ -1,24 +1,34 @@
 package org.lld.entity;
 
-import org.lld.service.NotificationService;
-
 public class ParkingTicket {
     private String refNo;
     private Vehicle vehicle;
     private ParkingSpot parkingSpot;
-    private User parkedUser;
     private long entryTimeStamp;
     private long exitTimeStamp;
-    private NotificationService notificationService;
+    private double bill;
 
-    public ParkingTicket(String refNo, Vehicle vehicle, ParkingSpot parkingSpot, User parkedUser, long entryTimeStamp, long exitTimeStamp) {
-        this.refNo = refNo;
+    public ParkingTicket(Vehicle vehicle, ParkingSpot parkingSpot, long entryTimeStamp) {
+        this.refNo = java.util.UUID.randomUUID().toString();
         this.vehicle = vehicle;
         this.parkingSpot = parkingSpot;
-        this.parkedUser = parkedUser;
         this.entryTimeStamp = entryTimeStamp;
-        this.exitTimeStamp = exitTimeStamp;
-        this.notificationService = new NotificationService();
+    }
+
+    public long getEntryTimeStamp() {
+        return entryTimeStamp;
+    }
+
+    public void setEntryTimeStamp(long entryTimeStamp) {
+        this.entryTimeStamp = entryTimeStamp;
+    }
+
+    public void setBill(double bill) {
+        this.bill = bill;
+    }
+
+    public double getBill() {
+        return bill;
     }
 
     public String getRefNo() {
@@ -45,22 +55,6 @@ public class ParkingTicket {
         this.parkingSpot = parkingSpot;
     }
 
-    public User getParkedUser() {
-        return parkedUser;
-    }
-
-    public void setParkedUser(User parkedUser) {
-        this.parkedUser = parkedUser;
-    }
-
-    public long getEntryTimeStamp() {
-        return entryTimeStamp;
-    }
-
-    public void setEntryTimeStamp(long entryTimeStamp) {
-        this.entryTimeStamp = entryTimeStamp;
-    }
-
     public long getExitTimeStamp() {
         return exitTimeStamp;
     }
@@ -69,6 +63,13 @@ public class ParkingTicket {
         this.exitTimeStamp = exitTimeStamp;
     }
 
-    //Method related to our system
+    //Method to trigger notification to the user
+    public void triggerParkingDetailsMessage() {
+        vehicle.user.notify("Your vehicle got parked in the slot: " + parkingSpot.getSpotName());
+    }
+
+    public void triggerParkingChargeMessage() {
+        vehicle.user.notify("Your parking charges are: " + bill);
+    }
 
 }

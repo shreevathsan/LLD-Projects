@@ -4,9 +4,14 @@ import org.lld.enums.Size;
 
 public class Truck extends Vehicle {
 
-    public Truck(String vehicleName, Size vehicleSize, String vehicleNumber) {
-        super(vehicleName, vehicleNumber);
+    public Truck(String vehicleName, String vehicleNumber, User user) {
+        super(vehicleName, vehicleNumber, user);
         vehicleSize = Size.LARGE;
+    }
+
+    @Override
+    public String getVehicleNumber() {
+        return vehicleNumber;
     }
 
     public String getVehicleName() {
